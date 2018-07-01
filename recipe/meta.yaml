@@ -12,17 +12,13 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
-  features:
-    - vc9  # [win and py27]
-    - vc10  # [win and py34]
-    - vc14  # [win and py35]
+  number: 1
 
 requirements:
   build:
-    - python  # [win]
     - cmake  # [win]
-    - toolchain
+    - {{ compiler('c') }}
+  host:
     - libogg
   run:
     - libogg
