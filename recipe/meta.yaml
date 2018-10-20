@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 1001
 
 requirements:
   build:
@@ -27,9 +27,6 @@ test:
   requires:
     - python {{ environ['PY_VER'] + '*' }}  # [win]
   commands:
-    - test -f $PREFIX/lib/libvorbis.la  # [unix]
-    - test -f $PREFIX/lib/libvorbisenc.la  # [unix]
-    - test -f $PREFIX/lib/libvorbisfile.la  # [unix]
     - test -f $PREFIX/lib/libvorbis.dylib  # [osx]
     - test -f $PREFIX/lib/libvorbisenc.dylib  # [osx]
     - test -f $PREFIX/lib/libvorbisfile.dylib  # [osx]
