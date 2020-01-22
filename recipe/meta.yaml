@@ -12,7 +12,9 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1001
+  number: 1002
+  run_exports:
+    - {{ pin_subpackage('libvorbis', max_pin='x.x') }}
 
 requirements:
   build:
@@ -24,15 +26,10 @@ requirements:
     - libogg
 
 test:
-  requires:
-    - python {{ environ['PY_VER'] + '*' }}  # [win]
   commands:
-    - test -f $PREFIX/lib/libvorbis.dylib  # [osx]
-    - test -f $PREFIX/lib/libvorbisenc.dylib  # [osx]
-    - test -f $PREFIX/lib/libvorbisfile.dylib  # [osx]
-    - test -f $PREFIX/lib/libvorbis.so  # [linux]
-    - test -f $PREFIX/lib/libvorbisenc.so  # [linux]
-    - test -f $PREFIX/lib/libvorbisfile.so  # [linux]
+    - test -f $PREFIX/lib/libvorbis${SHLIB_EXT}  # [unix]
+    - test -f $PREFIX/lib/libvorbisenc${SHLIB_EXT}  # [unix]
+    - test -f $PREFIX/lib/libvorbisfile${SHLIB_EXT}  # [unix]
     - if not exist %LIBRARY_LIB%\\libvorbis.lib exit 1  # [win]
     - if not exist %LIBRARY_BIN%\\libvorbis.dll exit 1  # [win]
 
