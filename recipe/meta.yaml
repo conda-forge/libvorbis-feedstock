@@ -20,7 +20,7 @@ requirements:
   build:
     - cmake  # [win]
     - {{ compiler('c') }}
-    - make # [unix]
+    - make  # [unix]
   host:
     - libogg
   run:
