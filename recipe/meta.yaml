@@ -19,8 +19,8 @@ build:
 requirements:
   build:
     - cmake  # [win]
-    - {{ compiler('c') }}
     - make  # [unix]
+    - {{ compiler('c') }}
   host:
     - libogg
   run:
