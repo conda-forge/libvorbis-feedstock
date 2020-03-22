@@ -1,6 +1,6 @@
 {% set name = "vorbis" %}
-{% set version = "1.3.5" %}
-{% set sha256 = "6efbcecdd3e5dfbf090341b485da9d176eb250d893e3eb378c428a2db38301ce" %}
+{% set version = "1.3.6" %}
+{% set sha256 = "43fc4bc34f13da15b8acfa72fd594678e214d1cab35fc51d3a54969a725464eb" %}
 
 package:
   name: lib{{ name|lower }}
@@ -8,19 +8,20 @@ package:
 
 source:
   fn:  lib{{ name }}-{{ version }}.tar.gz
-  url: http://downloads.xiph.org/releases/{{ name }}/lib{{ name }}-{{ version }}.tar.gz
+  url: https://github.com/xiph/{{ name }}/archive/v{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
-  number: 1002
+  number: 0
   run_exports:
     - {{ pin_subpackage('libvorbis', max_pin='x.x') }}
 
 requirements:
   build:
-    - cmake  # [win]
-    - make  # [unix]
     - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake
+    - make  # [unix]
   host:
     - libogg
   run:
@@ -28,11 +29,24 @@ requirements:
 
 test:
   commands:
-    - test -f $PREFIX/lib/libvorbis${SHLIB_EXT}  # [unix]
-    - test -f $PREFIX/lib/libvorbisenc${SHLIB_EXT}  # [unix]
-    - test -f $PREFIX/lib/libvorbisfile${SHLIB_EXT}  # [unix]
-    - if not exist %LIBRARY_LIB%\\libvorbis.lib exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\libvorbis.dll exit 1  # [win]
+    - test -f $PREFIX/lib/pkgconfig/vorbis.pc                        # [unix]
+    - test -f $PREFIX/lib/pkgconfig/vorbisenc.pc                     # [unix]
+    - test -f $PREFIX/lib/pkgconfig/vorbisfile.pc                    # [unix]
+    - test -f $PREFIX/include/vorbis/codec.h                         # [unix]
+    - test -f $PREFIX/include/vorbis/vorbisenc.h                     # [unix]
+    - test -f $PREFIX/include/vorbis/vorbisfile.h                    # [unix]
+    - test -f $PREFIX/lib/libvorbis.a                                # [unix]
+    - test -f $PREFIX/lib/libvorbisenc.a                             # [unix]
+    - test -f $PREFIX/lib/libvorbisfile.a                            # [unix]
+    - if not exist %LIBRARY_LIB%\\pkgconfig\\vorbis.pc exit 1        # [win]
+    - if not exist %LIBRARY_LIB%\\pkgconfig\\vorbisenc.pc exit 1     # [win]
+    - if not exist %LIBRARY_LIB%\\pkgconfig\\vorbisfile.pc exit 1    # [win]
+    - if not exist %LIBRARY_INC%\\vorbis\\codec.h exit 1             # [win]
+    - if not exist %LIBRARY_INC%\\vorbis\\vorbisenc.h exit 1         # [win]
+    - if not exist %LIBRARY_INC%\\vorbis\\vorbisfile.h exit 1        # [win]
+    - if not exist %LIBRARY_LIB%\\vorbis.lib exit 1                  # [win]
+    - if not exist %LIBRARY_LIB%\\vorbisenc.lib exit 1               # [win]
+    - if not exist %LIBRARY_LIB%\\vorbisfile.lib exit 1              # [win]
 
 about:
   home: https://www.xiph.org/

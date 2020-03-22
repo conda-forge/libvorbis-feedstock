@@ -1,10 +1,8 @@
 #!/bin/bash
 
-if [ `uname` == Darwin ]; then
-	export LDFLAGS="${LDFLAGS} -Wl,-rpath,$PREFIX/lib"
-fi
+cmake -DCMAKE_BUILD_TYPE=Release     \
+      -DCMAKE_INSTALL_PREFIX=$PREFIX \
+      -DCMAKE_INSTALL_LIBDIR=lib     \
+      $SRC_DIR
 
-./configure --prefix=${PREFIX} --disable-dependency-tracking
-make 
-make check
 make install

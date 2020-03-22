@@ -1,16 +1,11 @@
 setlocal EnableDelayedExpansion
 
-copy %RECIPE_DIR%\CMakeLists.txt .\CMakeLists.txt
-
-:: Make a build folder and change to it.
-mkdir build
-cd build
-
-:: Configure using the CMakeFiles
-cmake -G "NMake Makefiles" -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%" -DCMAKE_BUILD_TYPE:STRING=Release .. 
+cmake -G "NMake Makefiles" ^
+  -D CMAKE_BUILD_TYPE=Release ^
+  -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
+  %SRC_DIR%
 if errorlevel 1 exit 1
 
-:: Build!
 nmake
 if errorlevel 1 exit 1
 
