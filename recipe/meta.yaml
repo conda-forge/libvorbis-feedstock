@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   run_exports:
     - {{ pin_subpackage('libvorbis', max_pin='x.x') }}
 
@@ -35,9 +35,9 @@ test:
     - test -f $PREFIX/include/vorbis/codec.h                         # [unix]
     - test -f $PREFIX/include/vorbis/vorbisenc.h                     # [unix]
     - test -f $PREFIX/include/vorbis/vorbisfile.h                    # [unix]
-    - test -f $PREFIX/lib/libvorbis.a                                # [unix]
-    - test -f $PREFIX/lib/libvorbisenc.a                             # [unix]
-    - test -f $PREFIX/lib/libvorbisfile.a                            # [unix]
+    - test -f $PREFIX/lib/libvorbis${SHLIB_EXT}                      # [unix]
+    - test -f $PREFIX/lib/libvorbisenc${SHLIB_EXT}                   # [unix]
+    - test -f $PREFIX/lib/libvorbisfile${SHLIB_EXT}                  # [unix]
     - if not exist %LIBRARY_LIB%\\pkgconfig\\vorbis.pc exit 1        # [win]
     - if not exist %LIBRARY_LIB%\\pkgconfig\\vorbisenc.pc exit 1     # [win]
     - if not exist %LIBRARY_LIB%\\pkgconfig\\vorbisfile.pc exit 1    # [win]
@@ -47,6 +47,9 @@ test:
     - if not exist %LIBRARY_LIB%\\vorbis.lib exit 1                  # [win]
     - if not exist %LIBRARY_LIB%\\vorbisenc.lib exit 1               # [win]
     - if not exist %LIBRARY_LIB%\\vorbisfile.lib exit 1              # [win]
+    - if not exist %LIBRARY_BIN%\\vorbis.dll exit 1                  # [win]
+    - if not exist %LIBRARY_BIN%\\vorbisenc.dll exit 1               # [win]
+    - if not exist %LIBRARY_BIN%\\vorbisfile.dll exit 1              # [win]
 
 about:
   home: https://www.xiph.org/
@@ -61,3 +64,4 @@ extra:
   recipe-maintainers:
     - dschreij
     - carlodri
+    - martinRenou
