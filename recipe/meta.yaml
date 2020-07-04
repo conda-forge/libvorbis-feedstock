@@ -1,20 +1,20 @@
 {% set name = "vorbis" %}
-{% set version = "1.3.6" %}
-{% set sha256 = "43fc4bc34f13da15b8acfa72fd594678e214d1cab35fc51d3a54969a725464eb" %}
+{% set version = "1.3.7" %}
+{% set sha256 = "270c76933d0934e42c5ee0a54a36280e2d87af1de3cc3e584806357e237afd13" %}
 
 package:
   name: lib{{ name|lower }}
   version: {{ version }}
 
 source:
-  fn:  lib{{ name }}-{{ version }}.tar.gz
+  fn: lib{{ name }}-{{ version }}.tar.gz
   url: https://github.com/xiph/{{ name }}/archive/v{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
     - export_legacy_so_symlinks.patch
 
 build:
-  number: 2
+  number: 0
   run_exports:
     - {{ pin_subpackage('libvorbis', max_pin='x.x') }}
 
@@ -58,7 +58,7 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file: COPYING
-  summary: "Vorbis audio format"
+  summary: Vorbis audio format
   description: Lossy audio codec with a fixed point decoder.
   doc_url: https://wiki.xiph.org/
 
