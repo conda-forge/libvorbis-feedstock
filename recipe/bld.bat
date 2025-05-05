@@ -1,6 +1,6 @@
 setlocal EnableDelayedExpansion
 
-cmake -G "NMake Makefiles" ^
+cmake %CMAKE_ARGS% -G "NMake Makefiles" ^
   -D CMAKE_BUILD_TYPE=Release ^
   -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
   -D BUILD_SHARED_LIBS=ON ^
