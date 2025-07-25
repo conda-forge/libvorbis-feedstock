@@ -34,50 +34,26 @@ requirements:
     - ${{ pin_subpackage('libvorbis', upper_bound='x.x') }}
 
 tests:
-  - script:
-      - if: unix
-        then: test -f $PREFIX/lib/pkgconfig/vorbis.pc
-      - if: unix
-        then: test -f $PREFIX/lib/pkgconfig/vorbisenc.pc
-      - if: unix
-        then: test -f $PREFIX/lib/pkgconfig/vorbisfile.pc
-      - if: unix
-        then: test -f $PREFIX/include/vorbis/codec.h
-      - if: unix
-        then: test -f $PREFIX/include/vorbis/vorbisenc.h
-      - if: unix
-        then: test -f $PREFIX/include/vorbis/vorbisfile.h
-      - if: unix
-        then: test -f $PREFIX/lib/libvorbis${SHLIB_EXT}
-      - if: unix
-        then: test -f $PREFIX/lib/libvorbisenc${SHLIB_EXT}
-      - if: unix
-        then: test -f $PREFIX/lib/libvorbisfile${SHLIB_EXT}
-      - if: win
-        then: if not exist %LIBRARY_LIB%\\pkgconfig\\vorbis.pc exit 1
-      - if: win
-        then: if not exist %LIBRARY_LIB%\\pkgconfig\\vorbisenc.pc exit 1
-      - if: win
-        then: if not exist %LIBRARY_LIB%\\pkgconfig\\vorbisfile.pc exit 1
-      - if: win
-        then: if not exist %LIBRARY_INC%\\vorbis\\codec.h exit 1
-      - if: win
-        then: if not exist %LIBRARY_INC%\\vorbis\\vorbisenc.h exit 1
-      - if: win
-        then: if not exist %LIBRARY_INC%\\vorbis\\vorbisfile.h exit 1
-      - if: win
-        then: if not exist %LIBRARY_LIB%\\vorbis.lib exit 1
-      - if: win
-        then: if not exist %LIBRARY_LIB%\\vorbisenc.lib exit 1
-      - if: win
-        then: if not exist %LIBRARY_LIB%\\vorbisfile.lib exit 1
-      - if: win
-        then: if not exist %LIBRARY_BIN%\\vorbis.dll exit 1
-      - if: win
-        then: if not exist %LIBRARY_BIN%\\vorbisenc.dll exit 1
-      - if: win
-        then: if not exist %LIBRARY_BIN%\\vorbisfile.dll exit 1
-
+  - package_contents:
+      include: 
+        - vorbis/codec.h
+        - vorbis/vorbisenc.h
+        - vorbis/vorbisfile.h
+      lib:
+        - vorbis
+        - vorbisenc
+        - vorbisfile
+      files:
+        - if: win
+          then: 
+            - Library\\lib\\pkgconfig\\vorbis.pc
+            - Library\\lib\\pkgconfig\\vorbisenc.pc
+            - Library\\lib\\pkgconfig\\vorbisfile.pc
+          else:
+            - lib/pkgconfig/vorbis.pc
+            - lib/pkgconfig/vorbisenc.pc
+            - lib/pkgconfig/vorbisfile.pc
+  
 about:
   license: BSD-3-Clause
   license_file: COPYING
