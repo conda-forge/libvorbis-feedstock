@@ -12,7 +12,6 @@ package:
 source:
   url: https://github.com/xiph/${{ name }}/archive/v${{ version }}.tar.gz
   sha256: ${{ sha256 }}
-  file_name: lib${{ name }}-${{ version }}.tar.gz
   patches:
     - export_legacy_so_symlinks.patch
 
@@ -24,7 +23,7 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
     - ${{ stdlib('c') }}
-    - cmake
+    - cmake <4
     - ninja
   host:
     - libogg
@@ -46,9 +45,9 @@ tests:
       files:
         - if: win
           then: 
-            - Library\\lib\\pkgconfig\\vorbis.pc
-            - Library\\lib\\pkgconfig\\vorbisenc.pc
-            - Library\\lib\\pkgconfig\\vorbisfile.pc
+            - Library\lib\pkgconfig\vorbis.pc
+            - Library\lib\pkgconfig\vorbisenc.pc
+            - Library\lib\pkgconfig\vorbisfile.pc
           else:
             - lib/pkgconfig/vorbis.pc
             - lib/pkgconfig/vorbisenc.pc
